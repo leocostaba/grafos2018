@@ -10,9 +10,9 @@ using namespace std;
 class Grafo
 {
 private:
-	int V; // número de vértices
+	int V; // nÃºmero de vÃ©rtices
 
-	// ponteiro para um array contendo as listas de adjacências
+	// ponteiro para um array contendo as listas de adjacÃªncias
 	list<pair<int, int> > * adj;
 
 public:
@@ -20,11 +20,11 @@ public:
 	// construtor
 	Grafo(int V)
 	{
-		this->V = V; // atribui o número de vértices
+		this->V = V; // atribui o nÃºmero de vÃ©rtices
 
 		/*
-			cria as listas onde cada lista é uma lista de pairs
-			onde cada pair é formado pelo vértice destino e o custo
+			cria as listas onde cada lista Ã© uma lista de pairs
+			onde cada pair Ã© formado pelo vÃ©rtice destino e o custo
 		*/
 		adj = new list<pair<int, int> >[V];
 	}
@@ -33,7 +33,7 @@ public:
 
     bool impar(int index);
 
-	// adiciona uma aresta ao grafo de v1 à v2
+	// adiciona uma aresta ao grafo de v1 Ã  v2
 	void addAresta(int v1, int v2, int custo)
 	{
 		adj[v1].push_back(make_pair(v2, custo));
@@ -43,27 +43,27 @@ public:
 	// algoritmo de Dijkstra
 	int dijkstra(int orig, int dest)
 	{
-		// vetor de distâncias
+		// vetor de distÃ¢ncias
 		int dist[V];
 
 		/*
-		   vetor de visitados serve para caso o vértice já tenha sido
-		   expandido (visitado), não expandir mais
+		   vetor de visitados serve para caso o vÃ©rtice jÃ¡ tenha sido
+		   expandido (visitado), nÃ£o expandir mais
 		*/
 		int visitados[V];
 
-		// fila de prioridades de pair (distancia, vértice)
+		// fila de prioridades de pair (distancia, vÃ©rtice)
 		priority_queue < pair<int, int>,
 					   vector<pair<int, int> >, greater<pair<int, int> > > pq;
 
-		// inicia o vetor de distâncias e visitados
+		// inicia o vetor de distÃ¢ncias e visitados
 		for(int i = 0; i < V; i++)
 		{
 			dist[i] = INFINITO;
 			visitados[i] = false;
 		}
 
-		// a distância de orig para orig é 0
+		// a distÃ¢ncia de orig para orig Ã© 0
 		dist[orig] = 0;
 
 		// insere na fila
@@ -73,10 +73,10 @@ public:
 		while(!pq.empty())
 		{
 			pair<int, int> p = pq.top(); // extrai o pair do topo
-			int u = p.second; // obtém o vértice do pair
+			int u = p.second; // obtÃ©m o vÃ©rtice do pair
 			pq.pop(); // remove da fila
 
-			// verifica se o vértice não foi expandido
+			// verifica se o vÃ©rtice nÃ£o foi expandido
 			if(visitados[u] == false)
 			{
 				// marca como visitado
@@ -84,17 +84,17 @@ public:
 
 				list<pair<int, int> >::iterator it;
 
-				// percorre os vértices "v" adjacentes de "u"
+				// percorre os vÃ©rtices "v" adjacentes de "u"
 				for(it = adj[u].begin(); it != adj[u].end(); it++)
 				{
-					// obtém o vértice adjacente e o custo da aresta
+					// obtÃ©m o vÃ©rtice adjacente e o custo da aresta
 					int v = it->first;
 					int custo_aresta = it->second;
 
 					// relaxamento (u, v)
 					if(dist[v] > (dist[u] + custo_aresta))
 					{
-						// atualiza a distância de "v" e insere na fila
+						// atualiza a distÃ¢ncia de "v" e insere na fila
 						dist[v] = dist[u] + custo_aresta;
 						pq.push(make_pair(dist[v], v));
 					}
@@ -102,7 +102,7 @@ public:
 			}
 		}
 
-		// retorna a distância mínima até o destino
+		// retorna a distÃ¢ncia mÃ­nima atÃ© o destino
 		return dist[dest];
 	}
 };
@@ -137,8 +137,8 @@ int criarNovasArestas(vector<int> impares, Grafo g){
                 }
             }
         }
-        impares.erase(impares.begin()+menorU);
-        impares.erase(impares.begin()+menorV);
+        impares.erase(impares.begin() + menorU - 1);
+        impares.erase(impares.begin() + menorV - 2);
         return menorCaminhoEntreImpares + criarNovasArestas(impares, g);
     }
 }
@@ -163,14 +163,14 @@ int main(int argc, char *argv[])
 
     for(int i = 0; i < pontosTuristicos; i++){
         if(g.verticeDesconexo(i) == 0){
-            cout << "IMPOSÍVEL VISITAR TODOS OS CAMINHOS E PONTOS TURISTICOS, OS PONTOS TURISTICOS SÃO DESCONEXOS! ";
+            cout << "IMPOSÃVEL VISITAR TODOS OS CAMINHOS E PONTOS TURISTICOS, OS PONTOS TURISTICOS SÃƒO DESCONEXOS! ";
 			exit(0);
         }
         if(g.impar(i)){
             impares.push_back(i);
         }
     }
-    cout << "Serão gastos ";
+    cout << "SerÃ£o gastos ";
     if(impares.size() == 0){
         cout << PesoArestasIniciais;
 
