@@ -100,8 +100,9 @@ int Grafo::criarNovasArestas(vector<int> *impares){
 	while (!PQ.empty()) {
 		auto i = PQ.top();
 		PQ.pop();
-		if (S.find(i.second.first) != S.end() && S.find(i.second.first) != S.end()) {
+		if (S.find(i.second.first) == S.end() && S.find(i.second.first) == S.end()) {
 			menorCaminhoEntreImpares+=i.first;
+			cout << i.first <<"   " <<i.second.first << i.second.second << endl;
 			S.insert(i.second.first);
 			S.insert(i.second.second);
 		}
